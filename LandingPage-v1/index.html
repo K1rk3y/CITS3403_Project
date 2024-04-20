@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMEMADE.</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li class="active"><a href="#"></a>Home</li>
+            <li><a href="#"></a>Requests</li>
+            <li><a href="#"></a>Discussion</li>
+            <li><a href="#"></a>About</li>
+            <li class="ctn"><a href="#"></a>Contact</li>
+        </ul>
+        <img src="image/menu-btn.png" alt="" class="menu">
+    </nav>
+    <header>
+        <div class="header-content">
+            <h2 class="mainTitle">Homemade Food</h2>
+            <div class="line"></div>
+            <h1>Better quality Better price</h1>
+            <a href="#" class="ctn">Request Now</a>
+
+        </div>
+    </header>
+    <!-- How it works-->
+    <section class="steps">
+        <div class="title">
+            <h1>How it works</h1>
+            <div class="line"></div>
+            <div class="row">
+                <div class="col">
+                   <h4>Step1 info</h4>
+                    <a href="#" class="ctn">Step1</a>
+                </div>
+                <div class="col">
+                    <h4>Step2 info</h4>
+                    <a href="#" class="ctn">Step2</a>
+                </div>
+                <div class="col">
+                    <h4>Step3 info</h4>
+                    <a href="#" class="ctn">Step3</a>
+                    <!--Add symbols if possible-->
+                </div>
+                <div class="col">
+                    <h4>Step4 info</h4>
+                    <a href="#" class="ctn">Step4</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="topSellers">
+        <div class="topSellers-content">
+            <h1>Our top sellers</h1>
+            <!--Content with Naviagtion arrows here pleasee-->
+            <div class="line"></div>
+            
+        </div>
+    </section>
+
+    <section class="benefit">
+        <h1>So how do we benefit buyers</h1>
+                <div class="line"></div>    
+            </div>
+        </div>
+    </section>
+    <section class="footer">
+        <p>123 fifth Avenue,NSW,SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE. </p>
+    </section>
+
+    <script>
+        const menuBtn = document.querySelector('.menu')
+        const navlinks = document.querySelector('.nav-links')
+
+
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu')
+        })
+
+    </script>
+</body>
+
+</html>
