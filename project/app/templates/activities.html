@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Activities</title>
+</head>
+<body>
+    <h1>User Activities</h1>
+    <ul>
+        {% for activity in activities %}
+        <li>{{ activity.timestamp }}: {{ activity.user_id }} visited {{ activity.path }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
