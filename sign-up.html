@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="login-1.css">
+</head> 
+
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <p>Welcome to Homemade!</p>
+
+        <form id="registrationForm">
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            
+            <label for="role"><b>Select Role</b></label>
+            <div class="dropdown">
+                <button type="button" class="dropbtn" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">Select your role</button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="selectRole('Homecook')">Homecook</a>
+                    <a href="#" onclick="selectRole('Patron')">Patron</a>
+                </div>
+            </div>
+            <input type="hidden" id="role" name="role">
+
+            <button type="submit" class="registerbtn">Register</button> <!-- Moved out of dropdown div -->
+            
+            <div class="footer">
+                <a href="login-1.html" class="footer-link">Already a user?</a>
+            </div>
+        </form>
+  
+    </div>
+
+    <script src="sign-up.js"></script>
+</body>
+</html>
