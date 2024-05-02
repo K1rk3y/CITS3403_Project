@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Page - HOMEMADE.</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1px;
+        align-items: flex-start;
+        gap: 30px;
+        padding: 20px;
+    }
+    .board {
+        flex-basis: 50%;
+        max-width: 600px;
+        padding: 50px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .description {
+        flex-basis: 30%;  
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem; 
+    }
+    .input[type=submit], button {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        margin: 10px 0px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .input[type=submit]:hover, button:hover {
+        background-color: #037f58;
+    }
+    .request-form {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9
+    }
+
+    .order-group {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .order-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .order-group input,
+    .order-group select,
+    .order-group textarea {
+        width: calc(100% - 22px); 
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .order-group button {
+        background-color: #f44336;
+        padding: 10px 15px;
+        margin-top: 5px;
+        border-radius: 5px;
+    }
+    .order-group button:hover {
+        background-color: #c0392b;
+    }
+
+    @media (max-width: 768px) {
+        .flex-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .board,
+        .description {
+            flex-basis: auto;
+            max-width: 100%;
+        }
+    }
+</style>
+<body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li class="active"><a href="#">Requests</a></li>
+            <li><a href="#">Discussion</a></li>
+            <li><a href="#">About</a></li>
+            <li class="ctn"><a href="#">Contact</a></li>
+        </ul>
+        <img src="image/menu-btn.png" alt="" class="menu">
+    </nav>
+
+    <header class="header-content">
+        <h2 class="mainTitle">Request Page</h2>
+        <h3>Submit Your Personal Cooking Request Here.</h3>
+    </header>
+    <section class="request-form-section">
+        <div class="flex-container">
+            <div class="request-form">
+                <form id="orderForm" onsubmit="return validateOrderForm()">
+                    <div class="form-group">
+                        <label for="Name">Name:</label>
+                        <label for="Name"></label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First" required>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="suburb">Suburb:</label>
+                        <input type="text" id="suburb" name="suburb" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">          
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group order-section" id="orders-container">
+                        <div class="order-group">
+                            <label for="meal">Meal:</label>
+                            <select id="meal" name="mealType[]" required>
+                                <option value="">Select a meal</option>
+                                <option value="normal">Normal</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="pescatarian">Pescatarian</option>
+                                <option value="nut-free">Nut-Free</option>
+                            </select>
+                            
+                            <label for="number">Number of People:</label>
+                            <input type="number" id="number" name="numberOfPeople[]" min="1" required>
+                            
+                            <label for="instructions">Special Instructions:</label>
+                            <textarea id="instructions" name="instructions[]" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addOrder()">Add Another Order</button>
+                    <div class="form-group">
+                        <button type="submit" class="submit-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="footer">
+        <p>123 fifth Avenue, NSW, SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE. All rights reserved.</p>
+    </section>
+    <script>
+        /*
+        function sendData(data) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "OUR URL", true);  
+            xhr.setRequestHeader("Content-Type", "application/json");  
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {  
+                    if (xhr.status === 200) {  
+                        alert("The request was successful: " + xhr.status);
+                    } else {
+                        alert("Failed to submit form with status: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data)); 
+        } */       
+        function addOrder() {
+            var ordersContainer = document.getElementById('orders-container');
+            var newOrderDiv = document.createElement('div');
+            newOrderDiv.classList.add('order-group');
+            var newMealLabel = document.createElement('label');
+            newMealLabel.textContent = 'Meal:';
+            var newMealSelect = document.createElement('select');
+            newMealSelect.name = 'mealType[]';
+            newMealSelect.required = true;
+            var mealOptions = ['Select a meal', 'Normal', 'Vegan', 'Vegetarian', 'Pescatarian', 'Nut-Free'];
+            mealOptions.forEach(function(meal) {
+                var option = document.createElement('option');
+                option.value = meal.toLowerCase();
+                option.textContent = meal;
+                newMealSelect.appendChild(option);
+            });
+            var newNumberLabel = document.createElement('label');
+            newNumberLabel.textContent = 'Number of People:';
+            var newNumberInput = document.createElement('input');
+            newNumberInput.type = 'number';
+            newNumberInput.name = 'numberOfPeople[]';
+            newNumberInput.min = 1;
+            newNumberInput.required = true;
+            var newInstructionsLabel = document.createElement('label');
+            newInstructionsLabel.textContent = 'Special Instructions:';
+            var newInstructionsInput = document.createElement('textarea');
+            newInstructionsInput.name = 'instructions[]';
+            newInstructionsInput.rows = 4;
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button'; 
+            removeButton.textContent = 'Remove Order';
+            removeButton.onclick = function() {
+                if (confirm('Are you sure you want to remove this order?')) {
+                    ordersContainer.removeChild(newOrderDiv);
+                }
+            };
+            newOrderDiv.appendChild(newMealLabel);
+            newOrderDiv.appendChild(newMealSelect);
+            newOrderDiv.appendChild(newNumberLabel);
+            newOrderDiv.appendChild(newNumberInput);
+            newOrderDiv.appendChild(newInstructionsLabel);
+            newOrderDiv.appendChild(newInstructionsInput);
+            newOrderDiv.appendChild(removeButton); 
+            ordersContainer.appendChild(newOrderDiv);
+        }
+
+        function validateOrderForm() {
+            var emailRegex = /^\S+@\S+\.\S+$/;
+            var phoneRegex = /^\d{10}$/;
+            var addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var address = document.getElementById('address').value;
+            var suburb = document.getElementById('suburb').value;
+            var phone = document.getElementById('phone').value;
+            var email = document.getElementById('email').value;
+            var orders = [];
+            var orderGroups = document.querySelectorAll('.order-group');
+            for (var i = 0; i < orderGroups.length; i++) {
+                var group = orderGroups[i];
+                var meal = group.querySelector('[name="mealType[]"]').value;
+                var number = group.querySelector('[name="numberOfPeople[]"]').value;
+                var instructions = group.querySelector('[name="instructions[]"]').value;
+                if (firstName.trim() === "" || lastName.trim() === "" || address.trim() === "" || suburb.trim() === "" || phone.trim() === "" || email.trim() === "" || meal.trim() === "" || number.trim() === "" || instructions.trim() === ""){
+                    alert("Please fill in all required fields.");
+                    return false;
+                }
+                if (!email.match(emailRegex)) {
+                    alert("Please enter a valid email address.");
+                    return false;
+                }
+                if (!phone.match(phoneRegex)) {
+                    alert("Please enter a valid 10-digit phone number.");
+                    return false;
+                }
+                if (instructions.length > 200) {
+                    alert("Special instructions too long. Maximum of 200 characters allowed.");
+                    return false;
+                }
+                if (!address.match(addressRegex)) {
+                    alert("Please enter a valid address.");
+                    return false;
+                }            
+                if (parseInt(number) > 8) {
+                    alert("Meal is for too many people.");
+                    return false;
+                }
+                orders.push({
+                    meal: meal,
+                    number: number,
+                    instructions: instructions
+                });
+            }
+            sendData({firstName, lastName, address, suburb, phone, email, orders});
+            //alert("Success");
+            return false; // Will change this to true once sendData() Function is made.
+        }
+    </script>
+</body>
+</html>
