@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Search Orders</h1>
+
+    <form method="POST" action="{{ url_for('main.search') }}">
+        {{ form.hidden_tag() }}
+        <label for="search_query">{{ form.search_query.label }}</label>
+        {{ form.search_query(size=30, placeholder="Enter search term") }}
+        {{ form.submit() }}
+    </form>
+
+    {% if results is not none %}
+        <h2>Search Results</h2>
+        <ul>
+            {% for order in results %}
+                <li>
+                    {{ order.first_name }} {{ order.last_name }} ({{ order.email }}) - Meal: {{ order.meal }}
+                </li>
+            {% else %}
+                <li>No matching results found.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

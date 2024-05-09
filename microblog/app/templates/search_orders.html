@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Search Orders - Microblog</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.submit_order') }}">Home</a></li>
+                <li><a href="{{ url_for('main.list_orders') }}">List Orders</a></li>
+                <li><a href="{{ url_for('main.search_orders') }}">Search Orders</a></li>
+            </ul>
+        </nav>
+        <hr>
+
+        <h1>Search Orders</h1>
+        <form method="POST" action="{{ url_for('main.search_orders') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.query.label }}<br>
+                {{ form.query(size=32, class='form-control') }}
+            </div>
+            <div>
+                {{ form.submit(class='btn btn-primary') }}
+            </div>
+        </form>
+        <hr>
+
+        {% if orders %}
+        <h2>Matching Orders</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Suburb</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Meal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.first_name }}</td>
+                    <td>{{ order.last_name }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.suburb }}</td>
+                    <td>{{ order.email }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>{{ order.meal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </body>
+</html>
