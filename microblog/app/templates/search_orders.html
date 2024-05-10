@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+    <title>Search Orders - Microblog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='s3.css') }}">
+</head>
+<style>
+    .logo {
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    body {
+        background: rgba(18, 12, 12, 0.2); /* Include #899181 */
+        /*background: url("image/moving2.jpg");*/
+    }
+
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        margin: 20px 30px;
+    }
+
+    .search-bar input[type="text"] {
+        width: 300px;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .search-bar button {
+        padding: 8px 15px;
+        background-color: #037f58;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background-color: #025a3e;
+    }
+
+    aside.filters {
+        width: 220px;
+        padding: 20px;
+        border-right: 2px solid #ddd;
+        background-color: #ffffff;
+        margin-top: 30px; 
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    aside.filters h2 {
+        margin-top: 0;
+        color: #037f58;
+    }
+
+    aside.filters form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filters form label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .filters form input,
+    .filters form select {
+        padding: 8px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    main {
+        flex-grow: 1;
+        padding: 30px;
+        background-color: #ffffff;
+        margin: 30px 20px;  
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .results {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .result-item {
+        width: 180px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-item h3 {
+        margin-top: 0;
+        color: #037f58;
+    }
+
+    .result-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    #filters-form button[type="submit"] {
+        background-color: #899181;
+        color: #fff;
+        padding: 10px 50px; /* Adjust to your needs */
+        border: #589421;
+        border-radius: 10px; /* Adjust to your style preference */
+        cursor: pointer;
+        margin-right: 0;
+        margin-bottom: 5px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.367);
+    }
+    
+    #filters-form button[type="submit"]:hover {
+        background-color: #0c380c;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.367);
+    }
+    nav.navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #899181;
+        border-bottom: 2px solid #899181;
+        color: white;
+        position: relative;
+        z-index: 1000;
+    }
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        display: inline;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: #037f58;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .nav-links a:hover {
+        background-color: #025a3e;
+    }
+</style>
+<body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('main.submit_order') }}">Home</a></li>
+            <li><a href="{{ url_for('main.list_orders') }}">List Orders</a></li>
+            <li class="active"><a href="{{ url_for('main.search_orders') }}">Search Orders</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='image/menu-btn.png') }}" alt="Menu" class="menu">
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>Search Orders</h1>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <section class="request-form-section">
+        <form method="POST" action="{{ url_for('main.search_orders') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.query.label }}<br>
+                {{ form.query(size=32, class='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class='btn btn-primary') }}
+            </div>
+        </form>
+    </section>
+
+    <section class="orders-results">
+        {% if orders %}
+        <h2>Matching Orders</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Suburb</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Meal</th>
+                    <th>Number of People</th>
+                    <th>Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.first_name }}</td>
+                    <td>{{ order.last_name }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.suburb }}</td>
+                    <td>{{ order.email }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>{{ order.meal }}</td>
+                    <td>{{ order.number_of_people }}</td>
+                    <td>{{ order.instructions }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No matching orders found.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>123 Fifth Avenue, NSW, SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE.</p>
+    </footer>
+</body>
+</html>
