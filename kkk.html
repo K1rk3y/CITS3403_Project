@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMEMADE.</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./s3.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li><a href="#"></a>Home</li>
+            <li class="active"><a href="#"></a>Requests</li>
+            <li><a href="#"></a>Discussion</li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li class="ctn"><a href="#"></a>Contact</li>
+        </ul>
+        <img src="image/menu-btn.png" alt="" class="menu">
+    </nav>
+    <header>
+        <div class="header-content">
+            <h2 class="mainTitle">Request Page</h2>
+            <div class="line"></div>
+            <h1 class="caption">Submit Your Personal Cooking Request Here.</h1>
+        </div>
+    </header>
+    
+    <section class="request-form-section">
+        <div class="flex-container">
+            <div class="request-form">
+                <form id="orderForm" onsubmit="return validateOrderForm()">
+                    <div class="form-group">
+                        <label for="Name" class="fas fa-user icon"> NAME:</label>
+                        <div class="input-container">
+                            <input type="text" id="firstName" name="firstName" placeholder="First" required>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last" required>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="address" class="fas fa-home icon"> ADDRESS:</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="suburb" class="fas fa-building icon"> SUBURB:</label>
+                        <input type="text" id="suburb" name="suburb" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="fas fa-phone icon"> PHONE:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">          
+                    <label for="email" class="fas fa-envelope icon"> EMAIL:</label>
+                    <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group order-section" id="orders-container">
+                        <div class="order-group">
+                            <label for="meal" class="fas fa-cutlery icon meal-icon"> MEAL:</label>
+                            <select id="meal" name="mealType[]" required>
+                                <option value="">Select a meal</option>
+                                <option value="normal">Normal</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="pescatarian">Pescatarian</option>
+                                <option value="nut-free">Nut-Free</option>
+                            </select>
+                            
+                            <label for="number" class="fas fa-user-plus icon number-icon"> NUMBER OF PEOPLE:</label>
+                            <input type="number" id="number" name="numberOfPeople[]" min="1" required>
+                            
+                            <label for="instructions" class="fas fa-edit icon instructions-icon"> SPECIAL INSTRUCTIONS:</label>
+                            <textarea id="instructions" name="instructions[]" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addOrder()">Add Another Order</button>
+                    <div class="form-group">
+                        <button type="submit" class="submit-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="footer">
+        <p>123 fifth Avenue,NSW,SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE. </p>
+    </section>
+
+    <script>
+        function sendData(data) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "OUR URL", true);  
+            xhr.setRequestHeader("Content-Type", "application/json");  
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {  
+                    if (xhr.status === 200) {  
+                        alert("The request was successful: " + xhr.status);
+                    } else {
+                        alert("Failed to submit form with status: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data)); 
+        }      
+        function addOrder() {
+            var ordersContainer = document.getElementById('orders-container');
+            var newOrderDiv = document.createElement('div');
+            newOrderDiv.classList.add('order-group');
+        
+            // Add the meal label with the meal-icon class
+            var newMealLabel = document.createElement('label');
+            newMealLabel.className = 'fas fa-cutlery icon meal-icon'; // Assign icon classes
+            newMealLabel.textContent = ' MEAL:';
+            var newMealSelect = document.createElement('select');
+            newMealSelect.name = 'mealType[]';
+            newMealSelect.required = true;
+            var mealOptions = ['Select a meal', 'Normal', 'Vegan', 'Vegetarian', 'Pescatarian', 'Nut-Free'];
+            mealOptions.forEach(function(meal) {
+                var option = document.createElement('option');
+                option.value = meal.toLowerCase();
+                option.textContent = meal;
+                newMealSelect.appendChild(option);
+            });
+        
+            // Add the number of people label with the number-icon class
+            var newNumberLabel = document.createElement('label');
+            newNumberLabel.className = 'fas fa-user-plus icon number-icon'; // Assign icon classes
+            newNumberLabel.textContent = ' NUMBER OF PEOPLE:';
+            var newNumberInput = document.createElement('input');
+            newNumberInput.type = 'number';
+            newNumberInput.name = 'numberOfPeople[]';
+            newNumberInput.min = 1;
+            newNumberInput.required = true;
+        
+            // Add the special instructions label with the instructions-icon class
+            var newInstructionsLabel = document.createElement('label');
+            newInstructionsLabel.className = 'fas fa-edit icon instructions-icon'; // Assign icon classes
+            newInstructionsLabel.textContent = ' SPECIAL INSTRUCTIONS:';
+            var newInstructionsInput = document.createElement('textarea');
+            newInstructionsInput.name = 'instructions[]';
+            newInstructionsInput.rows = 4;
+        
+            // Button to remove the newly created order
+            var removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.textContent = 'Remove Order';
+            removeButton.onclick = function() {
+                if (confirm('Are you sure you want to remove this order?')) {
+                    ordersContainer.removeChild(newOrderDiv);
+                }
+            };
+        
+            // Append all the newly created elements to the new order div
+            newOrderDiv.appendChild(newMealLabel);
+            newOrderDiv.appendChild(newMealSelect);
+            newOrderDiv.appendChild(newNumberLabel);
+            newOrderDiv.appendChild(newNumberInput);
+            newOrderDiv.appendChild(newInstructionsLabel);
+            newOrderDiv.appendChild(newInstructionsInput);
+            newOrderDiv.appendChild(removeButton);
+        
+            // Append the new order to the container
+            ordersContainer.appendChild(newOrderDiv);
+        }        
+
+        function validateOrderForm() {
+            var emailRegex = /^\S+@\S+\.\S+$/;
+            var phoneRegex = /^\d{10}$/;
+            var addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var address = document.getElementById('address').value;
+            var suburb = document.getElementById('suburb').value;
+            var phone = document.getElementById('phone').value;
+            var email = document.getElementById('email').value;
+            var orders = [];
+            var orderGroups = document.querySelectorAll('.order-group');
+            for (var i = 0; i < orderGroups.length; i++) {
+                var group = orderGroups[i];
+                var meal = group.querySelector('[name="mealType[]"]').value;
+                var number = group.querySelector('[name="numberOfPeople[]"]').value;
+                var instructions = group.querySelector('[name="instructions[]"]').value;
+                if (firstName.trim() === "" || lastName.trim() === "" || address.trim() === "" || suburb.trim() === "" || phone.trim() === "" || email.trim() === "" || meal.trim() === "" || number.trim() === "" || instructions.trim() === ""){
+                    alert("Please fill in all required fields.");
+                    return false;
+                }
+                if (!email.match(emailRegex)) {
+                    alert("Please enter a valid email address.");
+                    return false;
+                }
+                if (!phone.match(phoneRegex)) {
+                    alert("Please enter a valid 10-digit phone number.");
+                    return false;
+                }
+                if (instructions.length > 200) {
+                    alert("Special instructions too long. Maximum of 200 characters allowed.");
+                    return false;
+                }
+                if (!address.match(addressRegex)) {
+                    alert("Please enter a valid address.");
+                    return false;
+                }            
+                if (parseInt(number) > 8) {
+                    alert("Meal is for too many people.");
+                    return false;
+                }
+                orders.push({
+                    meal: meal,
+                    number: number,
+                    instructions: instructions
+                });
+            }
+            sendData({firstName, lastName, address, suburb, phone, email, orders});
+            //alert("Success");
+            return false; // Will change this to true once sendData() Function is made.
+        }
+        const menuBtn = document.querySelector('.menu')
+        const navlinks = document.querySelector('.nav-links')
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu')
+        })
+    </script>
+</body>
+</html>
