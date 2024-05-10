@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
-    <link rel="stylesheet" href="login-1.css">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ stylesheet_url }}">
 </head> 
 
 <body>
     <div class="container">
-        <h1>Sign Up</h1>
-        <p>Welcome to Homemade!</p>
+        <h1>{{ header_text }}</h1>
+        <p>{{ welcome_message }}</p>
 
         <form id="registrationForm">
             <label for="email"><b>Email</b></label>
@@ -24,7 +24,7 @@
             
             <label for="role"><b>Select Role</b></label>
             <div class="dropdown">
-                <button type="button" class="dropbtn" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">Select your role</button>
+                <button type="button" class="dropbtn" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">{{ role_selection_text }}</button>
                 <div class="dropdown-content">
                     <a href="#" onclick="selectRole('Homecook')">Homecook</a>
                     <a href="#" onclick="selectRole('Patron')">Patron</a>
@@ -32,15 +32,15 @@
             </div>
             <input type="hidden" id="role" name="role">
 
-            <button type="submit" class="registerbtn">Register</button> <!-- Moved out of dropdown div -->
+            <button type="submit" class="registerbtn">{{ register_button_text }}</button>
             
             <div class="footer">
-                <a href="login-1.html" class="footer-link">Already a user?</a>
+                <a href="{{ login_url }}" class="footer-link">Already a user?</a>
             </div>
         </form>
   
     </div>
 
-    <script src="sign-up.js"></script>
+    <script src="{{ script_url }}"></script>
 </body>
 </html>
