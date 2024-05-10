@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="login-1.css">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{{ stylesheet }}">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="{{ logo_src }}" alt="Logo" class="logo">
         </div>
-        <h1>Login as a...</h1>
+        <h1>{{ heading_text }}</h1>
         <div class="login-form">
-            <button class="login-btn">Homecook</button>
-            <button class="login-btn">Patron</button>
+            <button class="login-btn">{{ button1_text }}</button>
+            <button class="login-btn">{{ button2_text }}</button>
         </div>
         <div class="footer">
-            <a href="sign-up-2.html" class="footer-link">New User?</a>
-            <a href="#" class="footer-link">Forgot Password?</a>
+            <a href="{{ signup_url }}" class="footer-link">New User?</a>
+            <a href="{{ forgot_password_link }}" class="footer-link">Forgot Password?</a>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="{{ script_src }}"></script>
 </body>
 </html>
