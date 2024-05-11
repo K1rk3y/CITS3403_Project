@@ -246,46 +246,7 @@ p{
     font-size: 2vmin;
 }
 
-.topSellers{
-    width:100%;
-    height:100vh;
-    background-image: url('image/topSeller.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat:no-repeat;
-    display:flex;
-    align-items:center;
 
-
-}
-
-.topSellers-content{
-    width:60%;
-    padding:50px;
-    color:whitesmoke;
-    display:flex;
-    align-items: center;
-    flex-direction: column;
-    
-
-}
-
-.topSellers-content h1{
-    font-size: 7vmin;
-    top: -800px;
-
-     
-}
-
-.topSellers-content p{
-    color:antiquewhite;
-
-}
-
-.topSellers-content ctn{
-    margin-top: 40px;
-
-}
 
 .benefit .row .col{
     width:50%;
@@ -482,7 +443,6 @@ p{
     position: relative;
     width: 100%;
     height: 100vh; 
-    background-image: url('https://assets-global.website-files.com/5e465eaf479e4cc0ef41f077/64285170f47c95bf1d420794_5ed609baf722b825410adb9c_5ec3714af9aaf9787943a936_sharing-a-meal-opti.jpeg');
     background-size: cover;
     background-position: center;
     text-align: center; 
@@ -515,5 +475,64 @@ p{
   .header-content h1 {
     font-size: 3em; 
     margin-bottom: 1em; 
+  }
+
+  .fas {
+    font-size: 50px;
+}
+
+.steps {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    align-items: stretch;
+}
+
+
+
+@media (max-width: 768px) {
+    .col {
+        width: 100%;
+    }
+}
+
+.how-we-help {
+    text-align: center;
+    background-color: #f9f9f9; /* Light background for the section */
+    padding: 20px;
+  }
+  
+  .how-we-help h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Ensures responsiveness */
+  }
+  
+  .feature {
+    width: 30%; /* Adjust based on container size */
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  .feature img {
+    width: 80px; /* Adjust based on actual icon size */
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .feature h3 {
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .feature p {
+    font-size: 14px;
+    color: #666;
   }
   
