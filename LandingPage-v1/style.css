@@ -516,4 +516,64 @@ p{
     font-size: 3em; 
     margin-bottom: 1em; 
   }
+
+  .fas {
+    font-size: 50px;
+}
+
+.steps {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    align-items: stretch;
+}
+
+
+
+@media (max-width: 768px) {
+    .col {
+        width: 100%;
+    }
+}
+
+.help-section {
+    text-align: center;
+    background-color: #f9f9f9; /* Light background for the section */
+    padding: 20px;
+  }
+  
+  .help-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Ensures responsiveness */
+  }
+  
+  .feature {
+    width: 30%; /* Adjust based on container size */
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  .feature img {
+    width: 80px; /* Adjust based on actual icon size */
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .feature h3 {
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .feature p {
+    font-size: 14px;
+    color: #666;
+  }
+  
   
