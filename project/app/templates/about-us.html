@@ -6,21 +6,95 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOMEMADE.</title>
-    <link rel="stylesheet" href="static/styles.css">
-
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 
-<nav class="navbar">
-    <h1 class="logo">HOMEMADE.</h1>
-    <ul class="nav-links">
-        <li class="active"><a href="#"></a>Home</li>
-        <li><a href="#"></a>Requests</li>
-        <li><a href="#"></a>Discussion</li>
-        <li><a href="#"></a>About</li>
-        <li class="ctn"><a href="#"></a>Contact</li>
-    </ul>
-    <img src="image/menu-btn.png" alt="" class="menu">
-</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Menu toggle for mobile view
+        const menuBtn = document.querySelector('.menu');
+        const navlinks = document.querySelector('.nav-links');
+  
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu');
+        });
+  
+        // Event listeners for navigation links
+        document.getElementById('home-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/';
+        });
+  
+        document.getElementById('requests-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/requests';
+        });
+  
+        document.getElementById('discussion-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/discussion';
+        });
+  
+        document.getElementById('about-us-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/about';
+        });
+  
+        // Event listeners for dropdown menu items (login button)
+        document.getElementById('login-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/login';
+        });
+  
+        document.getElementById('logout-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/logout';
+        });
+  
+        document.getElementById('home-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/home';
+        });
+  
+        // Dropdown toggle
+        document.querySelector('.dropbtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById("myDropdown").classList.toggle("show");
+        });
+  
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    });
+  </script>
+  <body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li class="active"><a id="home-btn" href="#">Home</a></li>
+            <li><a id="requests-btn" href="#">Requests</a></li>
+            <li><a id="discussion-btn" href="#">Discussion</a></li>
+            <li><a id="about-us-btn" href="about-us.html">About Us</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Login</a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a id="login-btn" href="login.html">Log in</a>
+                    <a id="logout-btn" href="logout.html">Log out</a>
+                </div>
+            </li>
+        </ul>
+        <img src="static/image/menu-btn.png" alt="Menu" class="menu">
+    </nav>
 
 <body>
     <div class="about-section">
