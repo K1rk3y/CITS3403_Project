@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <title>Search Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='s4.css') }}">
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Menu toggle for mobile view
+        const menuBtn = document.querySelector('.menu');
+        const navlinks = document.querySelector('.nav-links');
+  
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu');
+        });
+  
+        // Event listeners for navigation links
+        document.getElementById('home-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/home';
+        });
+  
+        document.getElementById('requests-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/requests';
+        });
+  
+        document.getElementById('discussion-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/discussion';
+        });
+  
+        document.getElementById('about-us-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/about';
+        });
+  
+        // Event listeners for dropdown menu items (login button)
+        document.getElementById('login-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/login';
+        });
+        
+        document.getElementById('list-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/list_orders';
+        });
+  
+        document.getElementById('logout-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/logout';
+        });
+  
+        // Dropdown toggle
+        document.querySelector('.dropbtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById("myDropdown").classList.toggle("show");
+        });
+  
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    });
+</script>
+<body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li><a id="home-btn" href="#">Home</a></li>
+            <li><a id="list-btn" href="#">List Orders</a></li>
+            <li class="active"><a id="discussion-btn" href="#">Discussion</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='image/menu-btn.png') }}" alt="Menu" class="menu">
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>Search Orders</h1>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="filters">
+            <h2>Filters</h2>
+            <form id="filters-form" method="POST" action="{{ url_for('form.search_orders') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="mealType">Meal Type</label>
+                    {{ form.mealType }}
+                </div>
+                <div class="form-group">
+                    <label for="numOfMeals">No. of Meals</label>
+                    {{ form.numOfMeals }}
+                </div>
+                <div class="form-group">
+                    <label for="suburb">Suburb</label>
+                    {{ form.suburb }}
+                </div>
+                <button type="submit">Apply Filters</button>
+            </form>
+        </aside>
+
+        <main>
+            <div class="search-bar">
+                <form method="POST" action="{{ url_for('form.search_orders') }}">
+                    {{ form.hidden_tag() }}
+                    <input type="text" name="query" id="query" placeholder="Search orders...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            <section class="results">
+                <h2>Results</h2>
+                {% if orders %}
+                <div class="search-results">
+                    {% for order in orders %}
+                    <div class="order-box">
+                        <div><strong>First Name:</strong> {{ order.first_name }}</div>
+                        <div><strong>Last Name:</strong> {{ order.last_name }}</div>
+                        <div><strong>Address:</strong> {{ order.address }}</div>
+                        <div><strong>Suburb:</strong> {{ order.suburb }}</div>
+                        <div><strong>Email:</strong> {{ order.email }}</div>
+                        <div><strong>Phone:</strong> {{ order.phone }}</div>
+                        <div><strong>Meal:</strong> {{ order.meal }}</div>
+                        <div><strong>Number of People:</strong> {{ order.number_of_people }}</div>
+                        <div class="instructions-box">
+                            <strong>Instructions:</strong> {{ order.instructions }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>No matching orders found.</p>
+                {% endif %}
+            </section>
+
+            <section class="top-sellers">
+                <h2>Top Sellers</h2>
+                <div class="seller-item">
+                    <img src="https://images.unsplash.com/photo-1470114755716-3e1124c6c3bd?q=80&w=1098&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Top Seller 1">
+                    <div>
+                        <h3>Top Seller 1</h3>
+                        <p>This exquisite dish features a beautifully cooked piece of meat, garnished with fresh herbs and accompanied by a vibrant, flavorful sauce. The presentation is elegant, showcasing the culinary expertise and attention to detail. It's served with a side of perfectly cooked vegetables, adding a delightful crunch and color contrast to the plate.</p>
+                    </div>
+                </div>
+                <div class="seller-item">
+                    <img src="https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Top Seller 2">
+                    <div>
+                        <h3>Top Seller 2</h3>
+                        <p>This dish features grilled meat, perfectly charred and tender, accompanied by a variety of fresh vegetables. The presentation includes vibrant green vegetables and a rich, flavorful sauce that enhances the overall taste. This combination of textures and flavors makes for a visually appealing and delectable meal.</p>
+                    </div>
+                </div>
+                <div class="seller-item">
+                    <img src="https://images.unsplash.com/photo-1556911073-52527ac43761?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Top Seller 3">
+                    <div>
+                        <h3>Top Seller 3</h3>
+                        <p>This dish is a vibrant and flavorful Moroccan-style vegetable stew. It's packed with a variety of vegetables such as carrots, potatoes, and sweet potatoes, all cooked with aromatic spices like harissa, coriander, cinnamon, and turmeric. Dried apricots are added to give a sweet contrast, enhancing the overall flavor. Chickpeas add a hearty texture, making this dish both filling and nutritious. Finished with fresh parsley and a splash of lemon juice, this tagine is typically served hot with couscous or rice, making it a perfect meal for any occasion.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>123 Fifth Avenue, NSW, SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE.</p>
+    </footer>
+</body>
+</html>
