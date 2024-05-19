@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='s3.css') }}">
+
+    <script>
+           document.addEventListener("DOMContentLoaded", function() {
+        // Menu toggle for mobile view
+        const menuBtn = document.querySelector('.menu');
+        const navlinks = document.querySelector('.nav-links');
+  
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu');
+        });
+  
+        // Event listeners for navigation links
+        document.getElementById('home-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/home';
+        });
+  
+        document.getElementById('requests-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/requests';
+        });
+  
+        document.getElementById('discussion-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/discussion';
+        });
+  
+        document.getElementById('about-us-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/about';
+        });
+  
+        // Event listeners for dropdown menu items (login button)
+        document.getElementById('login-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/login';
+        });
+  
+        document.getElementById('logout-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '/logout';
+        });
+  
+        // Dropdown toggle
+        document.querySelector('.dropbtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById("myDropdown").classList.toggle("show");
+        });
+  
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    });
+  </script>
+  <body>
+    <nav class="navbar">
+        <h1 class="logo">HOMEMADE.</h1>
+        <ul class="nav-links">
+            <li><a id="home-btn" href="#">Home</a></li>
+            <li><a id="requests-btn" href="#">Requests</a></li>
+            <li><a id="discussion-btn" href="#">Discussion</a></li>
+            <li class="active"><a id="about-us-btn" href="#">About Us</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Login</a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a id="login-btn" href="#">Log in</a>
+                    <a id="logout-btn" href="#">Log out</a>
+                </div>
+            </li>
+        </ul>
+        <img src="{{ url_for('static', filename='image/menu-btn.png') }}" alt="Menu" class="menu">
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h2 class="mainTitle">Request Page</h2>
+            <div class="line"></div>
+            <h1 class="caption">Submit Your Personal Cooking Request Here.</h1>
+        </div>
+    </header>
+
+    <section id="request-form-section" class="request-form-section">
+        <div class="flex-container">
+            <div class="request-form">
+                <form method="POST" action="{{ url_for('form.submit_order') }}" id="orderForm">
+                    {{ form.hidden_tag() }}
+                    <!-- First and Last Name Fields -->
+                    <div class="form-group">
+                        <label for="first_name" class="fas fa-user icon"> First Name:</label>
+                        {{ form.first_name(size=20, class='form-control') }}
+                        <label for="last_name" class="fas fa-user icon"> Last Name:</label>
+                        {{ form.last_name(size=20, class='form-control') }}
+                    </div>
+                    <!-- Address Field -->
+                    <div class="form-group">
+                        <label for="address" class="fas fa-home icon"> Address:</label>
+                        {{ form.address(size=50, class='form-control') }}
+                    </div>
+                    <!-- Suburb Field -->
+                    <div class="form-group">
+                        <label for="suburb" class="fas fa-building icon"> Suburb:</label>
+                        {{ form.suburb(size=20, class='form-control') }}
+                    </div>
+                    <!-- Phone Field -->
+                    <div class="form-group">
+                        <label for="phone" class="fas fa-phone icon"> Phone:</label>
+                        {{ form.phone(size=20, class='form-control') }}
+                    </div>
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="fas fa-envelope icon"> Email:</label>
+                        {{ form.email(size=30, class='form-control') }}
+                    </div>
+                    <!-- Meal Type Selector -->
+                    <div class="form-group">
+                        <label for="meal" class="fas fa-utensils icon"> Meal:</label>
+                        {{ form.meal(class='form-control') }}
+                    </div>
+                    <!-- Number of People Selector -->
+                    <div class="form-group">
+                        <label for="number_of_people" class="fas fa-users icon"> Number of People:</label>
+                        {{ form.number_of_people(class='form-control') }}
+                    </div>
+                    <!-- Special Instructions -->
+                    <div class="form-group">
+                        <label for="instructions" class="fas fa-comment-alt icon"> Special Instructions:</label>
+                        {{ form.instructions(rows=4, class='form-control') }}
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                    </div>
+                </form>
+                <div id="orderPlaced" style="display: none;">
+                    <h3>Order Placed!</h3>
+                    <!-- Additional content if needed -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <p>123 Fifth Avenue, NSW, SYD | Phone: 000-123-456 | Email: contact@example.com</p>
+        <p>Copyright © HOMEMADE.</p>
+    </section>
+
+    <script>
+        const menuBtn = document.querySelector('.menu')
+        const navlinks = document.querySelector('.nav-links')
+        menuBtn.addEventListener('click', () => {
+            navlinks.classList.toggle('mobile-menu')
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#orderForm').submit(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('form.submit_order') }}",
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function(response) {
+                        $('#orderPlaced').show(); // Show the order placed message
+                        $('#orderForm').hide(); // Hide the form
+
+                        setTimeout(function() {
+                            console.log('Redirecting...'); // Add this line for debugging
+                            window.location.href = '/discussion';
+                        }, 2000);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred while submitting the order.');
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

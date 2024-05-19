@@ -1,0 +1,156 @@
+from flask import Blueprint, render_template, session, request, flash, redirect, url_for, jsonify
+from flask_login import login_user, logout_user, current_user, login_required
+from werkzeug.security import check_password_hash, generate_password_hash
+from ..form_class import SearchForm, OrderForm
+from ..model import User, Order
+from app.validators import email_validator
+from .. import db
+from ..ai_core import Wrapper
+
+form_bp = Blueprint('form', __name__)
+
+#refractor
+def process_order_logic(form_data, order_model, db_session):
+    existing_order = order_model.query.filter_by(email=form_data['email']).first()
+    if existing_order:
+        # Update the existing order with new data
+        existing_order.first_name = form_data['first_name']
+        existing_order.last_name = form_data['last_name']
+        existing_order.address = form_data['address']
+        existing_order.suburb = form_data['suburb']
+        existing_order.phone = form_data['phone']
+        existing_order.meal = form_data['meal']
+        existing_order.number_of_people = form_data['number_of_people']
+        existing_order.instructions = form_data['instructions']
+        message = 'Order successfully updated!'
+    else:
+        # Create a new order if no existing order is found
+        order = order_model(
+            first_name=form_data['first_name'],
+            last_name=form_data['last_name'],
+            address=form_data['address'],
+            suburb=form_data['suburb'],
+            email=form_data['email'],
+            phone=form_data['phone'],
+            meal=form_data['meal'],
+            number_of_people=form_data['number_of_people'],
+            instructions=form_data['instructions']
+        )
+        db_session.add(order)
+        message = 'Order successfully submitted!'
+    db_session.commit()
+    return {'message': message}
+
+@form_bp.route('/home')
+def index():
+    return render_template('index.html')
+
+
+@form_bp.route('/about')
+def about_us():
+    return render_template('about-us.html')
+
+@form_bp.route('/requests', methods=['GET', 'POST'])
+def submit_order():
+    if not current_user.is_authenticated:
+        flash('Please log in to access this page.', 'warning')
+        return redirect(url_for('auth.login_patron'))
+    form = OrderForm()
+    if form.validate_on_submit():
+        existing_order = Order.query.filter_by(email=form.email.data).first()
+        if existing_order:
+            # Update the existing order with new data
+            existing_order.first_name = form.first_name.data
+            existing_order.last_name = form.last_name.data
+            existing_order.address = form.address.data
+            existing_order.suburb = form.suburb.data
+            existing_order.phone = form.phone.data
+            existing_order.meal = form.meal.data
+            existing_order.number_of_people = form.number_of_people.data
+            existing_order.instructions = form.instructions.data
+ 
+        else:
+            # Create a new order if no existing order is found
+            order = Order(
+                first_name=form.first_name.data,
+                last_name=form.last_name.data,
+                address=form.address.data,
+                suburb=form.suburb.data,
+                email=form.email.data,
+                phone=form.phone.data,
+                meal=form.meal.data,
+                number_of_people=form.number_of_people.data,
+                instructions=form.instructions.data
+            )
+            db.session.add(order)
+            
+        db.session.commit()
+        # Return a JSON response indicating success
+        return jsonify({'success': True})
+
+    return render_template('requests.html', form=form)
+
+
+@form_bp.route('/list_orders')
+def list_orders():
+    orders = Order.query.all()
+    for order in orders:
+        print(order.first_name, order.last_name, order.email, order.meal)
+    return "Orders printed in console"
+
+
+@form_bp.route('/discussion', methods=['GET', 'POST'])
+def search_orders():
+    if not current_user.is_authenticated:
+        flash('Please log in to access this page.', 'warning')
+        return redirect(url_for('auth.login_patron'))
+    
+    form = SearchForm()
+    orders = []
+    response = ''
+    
+    if form.validate_on_submit():
+        query = form.query.data.strip().lower() if form.query.data else ''
+        mealType = form.mealType.data.strip().lower() if form.mealType.data else ''
+        numOfMeals = form.numOfMeals.data if form.numOfMeals.data else None
+        suburb = form.suburb.data.strip().lower() if form.suburb.data else ''
+
+        filters = []
+
+        if query:
+            filters.append(
+                (Order.first_name.ilike(f"%{query}%")) |
+                (Order.last_name.ilike(f"%{query}%")) |
+                (Order.address.ilike(f"%{query}%")) |
+                (Order.suburb.ilike(f"%{query}%")) |
+                (Order.phone.ilike(f"%{query}%")) |
+                (Order.email.ilike(f"%{query}%")) |
+                (Order.meal.ilike(f"%{query}%")) |
+                (Order.instructions.ilike(f"%{query}%"))
+            )
+
+        if mealType:
+            filters.append(Order.meal.ilike(f"%{mealType}%"))
+
+        if numOfMeals is not None:
+            filters.append(Order.number_of_people == numOfMeals)
+
+        if suburb:
+            filters.append(Order.suburb.ilike(f"%{suburb}%"))
+
+        if filters:
+            orders = Order.query.filter(*filters).all()
+
+        if not orders:
+            # Check if query contains keywords
+            keywords = ["what", "how", "why", "when", "who"]
+            if any(keyword in query for keyword in keywords):
+                response = Wrapper("Do not reveal any names, but you can reveal the details of anything else.", query)  # Call the Wrapper function
+                flash(response)
+            else:
+                flash("No matching orders found.")
+        else:
+            flash(f"Found {len(orders)} matching orders.")
+
+    return render_template('search_orders.html', form=form, orders=orders, response=response)
+    
