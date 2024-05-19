@@ -10,6 +10,8 @@ login_manager = LoginManager()
 def create_app(config_name='Config'):
     app = Flask(__name__)
     app.config.from_object(f'config.{config_name}')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 '''def create_app():
