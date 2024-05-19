@@ -36,7 +36,7 @@ class ProcessOrderLogicLargeDBTestCase(unittest.TestCase):
         self.app_context.pop()
 
     def populate_large_database(self):
-        large_number = 10000  # Adjust this number as needed to simulate a large database
+        large_number = 10000 
         meal_options = ['Pizza', 'Vegan', 'Vegetarian', 'Pescatarian', 'Nut-Free']
         instructions_options = ['Extra cheese', 'No onions', 'Gluten-free', 'Extra sauce', 'No garlic']
 
