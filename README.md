@@ -30,11 +30,12 @@ Instructions for how to launch the application
 5. access http://localhost:5000/home
 
 
-List of prerequisites
+List of prerequisites Installations
 
 pip install flask
 pip install flask_login
 pip install flask_sqlalchemy
+pip install beautifulsoup4
 pip install pandas
 pip install tiktoken
 pip install openai
@@ -45,11 +46,27 @@ pip install flask_migrate
 pip install email_validator
 pip install selenium
 pip install flask-testing
-
+pip install selenium
 
 Instructions for how to run the tests for the application
 
-Instructions for running unit test:python -m unittest <filename>
+Instructions for running unit test: python -m unittest <filename>
+
+
+Instructions for how to run the tests for the Selenium Tests
+Modify this port number to fit accordingly to yours: http://localhost:5001/
+1. Run the flask application on the main terminal.
+2. Install Selenium IDE Extension:
+    -  Go to the Chrome Web Store and search for "Selenium IDE".
+    -  Click "Add to Chrome" to install the Selenium IDE extension.
+3. Open Selenium IDE
+    -  Click on the Selenium IDE icon in the Chrome toolbar to open the Selenium IDE interface.
+4. Open the Project
+    -  Click on "Open an existing project" and navigate to the saved Selenium project file (selenium_test.side file).
+    -  Optionally, you can checkout the code at selenium_UI_test.py and optionally another old code written at           test_selenium.py.
+5. During the execution of selenium tests in IDE.
+    - During the execution of the selenium tests in the IDE if it stops it will be due to the username/email already being in the database, this is because there can be only 1 username. Thus these tests will execute only if the database is empty initially, otherwise you can skip the current subtest within the IDE and go onwards to test the rest of the functionality.     
+
 
 
 
