@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com.css2?family=Poppins');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 *{
     margin:0;
@@ -39,29 +39,89 @@ ul{
 overflow-x: hidden;
 }
 
-.navbar{
+.navbar {
     position: absolute;
     top: 0;
-    left:0;
-    display:flex;
-    width:100%;
-    justify-content: space-between;/*space between the items*/
-    padding:20px;
-    color:whitesmoke;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    color: whitesmoke;
     background-color: #899181;
 }
-.nav-links{
-    display:flex;
-    align-items:center;/*align items along the axis*/
-    color:whitesmoke;
-    margin-top: 20p;
-    
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    color: whitesmoke;
+    margin-top: 20px;
 }
 
-.nav-links li{
-    margin: 0 30px;
-    
+.navbar .nav-links li {
+    margin: 0 15px; /* Add some space between the links */
 }
+
+.navbar .nav-links li a {
+    color: black; /* Change the link text color to black */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 14px; /* Adjust the font size */
+}
+
+.navbar .nav-links li a:hover {
+    color: white; /* Optional: Change color on hover */
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+}
+
+/* Styling the dropdown button */
+.dropbtn {
+    background-color: green; /* You can change this color */
+    color: black;
+    border: none;
+    cursor: pointer;
+    padding: 16px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 100px; /* Adjust width to make it circular */
+    height: 50px; /* Adjust height to make it circular */
+    line-height: 18px; /* Centers the text vertically */
+}
+
+/* The container for dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: 0;
+    top: 60px; /* Adjust to position below the button */
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #aee0d6;
+}
+
+/* Show the dropdown content when the button is clicked */
+.show {
+    display: block;
+}
+
 
 .about-section {
     padding-top: 30px;
