@@ -49,5 +49,7 @@ pip install flask-testing
 
 Instructions for how to run the tests for the application
 
+Instructions for running unit test:python -m unittest <filename>
+
 
 
