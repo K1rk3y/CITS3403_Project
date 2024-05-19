@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="static/login.css">
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {              
+            document.getElementById('signup').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default action of clicking anchor link
+                // Redirect to the /login page
+                window.location.href = '/register';
+            });
+            
+         });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Logging you in as a Home Cook!</h2>
+
+        <form id="registrationForm" action="/login-cook" method="post">
+            {{ form.csrf_token }}           
+            
+            <p>
+                {{ form.username.label }}<br>
+                {{ form.username(size=32) }}
+                {% for error in form.username.errors %}
+                    <span style="color: red;">{{ error }}</span><br>
+                {% endfor %}
+            </p>
+
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }}
+                {% for error in form.password.errors %}
+                    <span style="color: red;">{{ error }}</span><br>
+                {% endfor %}
+            </p>
+            
+            <p>
+                {{ form.submit }}
+            </p>
+            
+            <div class="footer">
+                <a href="#" id="signup" class="footer-link">Sign Up</a>
+            </div>
+        </form>
+  
+    </div>
+</body>
+</html>
+

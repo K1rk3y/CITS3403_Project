@@ -1,0 +1,158 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #899181;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 100px;
+    text-align: center;
+}
+
+.sign-up-box {
+    background-color: #ffffff; /* Background color of the box */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 500px; /* Change this to your desired width */
+    width: 100%; /* Ensure it takes the full width of its parent container */
+    margin: 0 auto;
+    text-align: left;
+    color: #333; /* Text color inside the box */
+}
+
+.signup-box h1 {
+    margin-bottom: 20px;
+    color: #4CAF50; /* Adjust the color as needed */
+}
+
+.signup-box p {
+    color: #4CAF50; /* Adjust the color as needed */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 80%; /* Adjust the width as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto; /* Center the input fields */
+}
+
+.btn-primary {
+    background-color: #4CAF50; /* Button background color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #45a049; /* Button hover color */
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+input[type="text"], input[type="password"], .dropbtn {
+    width: 80%;  /* Adjust the width as needed */
+    padding: 15px; /* Uniform padding for visual consistency */
+    margin: 5px 0 22px 0; /* Margin for spacing */
+    display: inline-block;
+    border: 1px solid #ccc; /* Adding border for consistency */
+    background: #f1f1f1; /* Background color for default state */
+    font-size: 16px; /* Font size matched with other inputs */
+    border-radius: 4px; /* Adding rounded corners for aesthetics */
+    margin: 0 auto; /* Center the input fields */
+}
+
+input[type="text"]:focus, input[type="password"]:focus, .dropbtn:focus {
+    background-color: #ddd; /* Focus background color */
+    outline: none; /* Removes the outline */
+    border: 1px solid #888; /* Darker border on focus for better visibility */
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* The container <div> for dropdown - adjusted for correct positioning */
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%; /* Match the width of the dropdown button */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on click */
+.dropdown .dropbtn:focus + .dropdown-content {
+    display: block;
+}
+
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 80%; /* Adjust the width as needed */
+    opacity: 0.9;
+    border-radius: 4px; /* Consistent rounded corners */
+    margin: 0 auto; /* Center the button */
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
