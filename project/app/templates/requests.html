@@ -10,71 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='s3.css') }}">
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Menu toggle for mobile view
-            const menuBtn = document.querySelector('.menu');
-            const navlinks = document.querySelector('.nav-links');
-      
-            menuBtn.addEventListener('click', () => {
-                navlinks.classList.toggle('mobile-menu');
-            });
-      
-            // Event listeners for navigation links
-            document.getElementById('home-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/home';
-            });
-      
-            document.getElementById('requests-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/requests';
-            });
-      
-            document.getElementById('discussion-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/discussion';
-            });
-      
-            document.getElementById('about-us-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/about';
-            });
-      
-            // Event listeners for dropdown menu items (login button)
-            document.getElementById('login-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/login';
-            });
-      
-            document.getElementById('logout-btn').addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/logout';
-            });
-      
-            // Dropdown toggle
-            document.querySelector('.dropbtn').addEventListener('click', function(event) {
-                event.preventDefault();
-                document.getElementById("myDropdown").classList.toggle("show");
-            });
-      
-            // Close dropdown if clicked outside
-            window.addEventListener('click', function(event) {
-                if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    for (var i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
-</head>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
+           document.addEventListener("DOMContentLoaded", function() {
         // Menu toggle for mobile view
         const menuBtn = document.querySelector('.menu');
         const navlinks = document.querySelector('.nav-links');
@@ -134,16 +70,22 @@
             }
         });
     });
-</script>
-<body>
+  </script>
+  <body>
     <nav class="navbar">
         <h1 class="logo">HOMEMADE.</h1>
         <ul class="nav-links">
             <li><a id="home-btn" href="#">Home</a></li>
-            <li class="active"><a id="requests-btn" href="#">Requests</a></li>
+            <li><a id="requests-btn" href="#">Requests</a></li>
             <li><a id="discussion-btn" href="#">Discussion</a></li>
-            <li><a id="about-us-btn" href="#">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a id="about-us-btn" href="#">About Us</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Login</a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a id="login-btn" href="#">Log in</a>
+                    <a id="logout-btn" href="#">Log out</a>
+                </div>
+            </li>
         </ul>
         <img src="{{ url_for('static', filename='image/menu-btn.png') }}" alt="Menu" class="menu">
     </nav>
