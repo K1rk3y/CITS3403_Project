@@ -8,7 +8,7 @@ import tiktoken
 from openai import OpenAI
 
 # Load OpenAI client
-client = OpenAI(api_key='sk-')
+client = OpenAI(api_key='')
 
 # Function to remove newlines from a Series
 def remove_newlines(serie):
@@ -65,7 +65,8 @@ def answer_question(df, model="gpt-3.5-turbo", question="Who are you", condition
         print("Context:\n" + context)
         print("\n\n")
     try:
-        prompt=f"Answer the question based on the context below, and if the question can't be answered based on the context, say \"I don't have that infomation at this moment.\"\n\nContext: {context}\n\n---\n\nQuestion: {question}\n" + condition_prompt + "\nAnswer:"
+        prompt=f"You are an AI Assistant designed for a website called Homemade, the customers may ask you questions regrading the meal orders being submitted(context). In the context, instructions is equivlant to customer prefrences. Answer the question based on the context below, and if the question can't be answered based on the context, say \"I don't have that infomation at this moment.\"\n\nContext: {context}\n\n---\n\nQuestion: {question}\n" + condition_prompt + "\nAnswer:"
+
         response = client.chat.completions.create(
             messages=[
                 {"role": "user", "content": prompt}
