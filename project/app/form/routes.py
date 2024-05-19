@@ -9,6 +9,38 @@ from ..ai_core import Wrapper
 
 form_bp = Blueprint('form', __name__)
 
+#refractor
+def process_order_logic(form_data, order_model, db_session):
+    existing_order = order_model.query.filter_by(email=form_data['email']).first()
+    if existing_order:
+        # Update the existing order with new data
+        existing_order.first_name = form_data['first_name']
+        existing_order.last_name = form_data['last_name']
+        existing_order.address = form_data['address']
+        existing_order.suburb = form_data['suburb']
+        existing_order.phone = form_data['phone']
+        existing_order.meal = form_data['meal']
+        existing_order.number_of_people = form_data['number_of_people']
+        existing_order.instructions = form_data['instructions']
+        message = 'Order successfully updated!'
+    else:
+        # Create a new order if no existing order is found
+        order = order_model(
+            first_name=form_data['first_name'],
+            last_name=form_data['last_name'],
+            address=form_data['address'],
+            suburb=form_data['suburb'],
+            email=form_data['email'],
+            phone=form_data['phone'],
+            meal=form_data['meal'],
+            number_of_people=form_data['number_of_people'],
+            instructions=form_data['instructions']
+        )
+        db_session.add(order)
+        message = 'Order successfully submitted!'
+    db_session.commit()
+    return {'message': message}
+
 @form_bp.route('/home')
 def index():
     return render_template('index.html')
