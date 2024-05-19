@@ -17,8 +17,8 @@ Group members
 |----------|----------|----------|
 | Cheng Li    | 23468614   | K1rk3y   |
 |   Nishk Patel   | 23363009   | Nishk139   |
-| Row 3    | Data 5   | Data 6   |
-| Row 3    | Data 5   | Data 6   |
+| Sreelajoyoti Mitra    | 23297983   | Sreelajoyoti  |
+| Amadea Yinata   | Data 5   | ayin2830  |
 
 
 
