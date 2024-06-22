@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title }}</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #899181;
+                margin: 0;
+            }
+            .logout-container {
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            .logout-container h1 {
+                margin-bottom: 20px;
+            }
+            .logout-container button {
+                padding: 10px 20px;
+                margin: 5px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .logout-container .confirm {
+                background-color: #cd6759;
+                color: white;
+            }
+            .logout-container .cancel {
+                background-color: #ccc;
+                color: black;
+            }
+        </style>
+    </head>
+<body>
+    <div class="logout-container">
+        <h1>{{ logout_message }}</h1>
+        {% if flash_message %}
+            <div>{{ flash_message }}</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('auth.logout') }}">
+            <button class="confirm" type="submit" name="action" value="confirm">{{ confirm_text }}</button>
+            <button class="cancel" type="submit" name="action" value="cancel">{{ cancel_text }}</button>
+        </form>
+    </div>
+</body>
+</html>
